@@ -1,0 +1,319 @@
+---
+import NextJS from "../components/icons/NextJS.astro";
+import Tailwind from "../components/icons/Tailwind.astro";
+import Typescript from "../components/icons/Typescript.astro";
+import React from "../components/icons/React.astro";
+import Javascript from "../components/icons/Javascript.astro";
+import NodeJS from "../components/icons/NodeJS.astro";
+import MongoDB from "../components/icons/MongoDB.astro";
+import HTML from "../components/icons/HTML.astro";
+import CSS3 from "../components/icons/CSS3.astro";
+
+const TAGS = {
+  NEXT: {
+    name: "Next.js",
+    class: "bg-black text-white",
+    icon: NextJS,
+  },
+  TAILWIND: {
+    name: "Tailwind",
+    class: "bg-[#003159] text-white",
+    icon: Tailwind,
+  },
+  TYPESCRIPT: {
+    name: "TypeScript",
+    class: "bg-blue-500/50 text-white",
+    icon: Typescript,
+  },
+  REACT: {
+    name: "React",
+    class: "bg-blue-500/50 text-white",
+    icon: React,
+  },
+  JAVASCRIPT: {
+    name: "Javascript",
+    class: "bg-yellow-500/50 text-black",
+    icon: Javascript,
+  },
+  NODEJS: {
+    name: "Node.js",
+    class: "bg-green-500/50 text-white",
+    icon: NodeJS,
+  },
+  MONGODB: {
+    name: "MongoDB",
+    class: "bg-green-500/70 text-white",
+    icon: MongoDB,
+  },
+  HTML: {
+    name: "HTML",
+    class: "bg-orange-500/50 text-white",
+    icon: HTML,
+  },
+  CSS: {
+    name: "CSS",
+    class: "bg-blue-500/50 text-white",
+    icon: CSS3,
+  },
+};
+
+const projects = [
+  {
+    name: "Mankekito",
+    description: "Bot de Discord multifuncional",
+    image: "/images/projects/mankekito.png",
+    isPrivate: true,
+    invite:
+      "https://discord.com/oauth2/authorize?client_id=758059320238931978&scope=bot&permissions=27652058174",
+    topgg: "https://top.gg/bot/758059320238931978",
+    tags: [TAGS.JAVASCRIPT, TAGS.NODEJS, TAGS.MONGODB],
+  },
+  {
+    name: "GT-Links",
+    description: "Acortador de enlaces",
+    image: "/images/projects/gt-links.png",
+    isPrivate: false,
+    github: "https://github.com/fco-gt/gt-links",
+    url: "https://gt-links.vercel.app",
+    tags: [
+      TAGS.JAVASCRIPT,
+      TAGS.NEXT,
+      TAGS.TAILWIND,
+      TAGS.MONGODB,
+      TAGS.TYPESCRIPT,
+    ],
+  },
+  {
+    name: "Master Bikes",
+    description: "E-Commerce de una tienda de bicicletas (ficticio)",
+    image: "/images/projects/master-bikes.png",
+    isPrivate: false,
+    github: "https://github.com/fco-gt/bikes-ecommerce",
+    url: "https://master-bikes.vercel.app",
+    tags: [
+      TAGS.TAILWIND,
+      TAGS.NEXT,
+      TAGS.TYPESCRIPT,
+      TAGS.REACT,
+      TAGS.JAVASCRIPT,
+    ],
+  },
+  {
+    name: "GT-Bikes",
+    description:
+      "APIREST Para un catalogo de bicicletas (codigo en mantenimiento pero funcional)",
+    image: "/images/projects/gt-bikes.png",
+    isPrivate: false,
+    github: "https://github.com/fco-gt/bikes-api",
+    url: "https://bikes-api.onrender.com",
+    tags: [TAGS.NODEJS, TAGS.JAVASCRIPT],
+  },
+  {
+    name: "Spotify Playlist",
+    description: "Web que muestra mis playlists de Spotify",
+    image: "/images/projects/spotify-playlists.png",
+    isPrivate: false,
+    github: "https://github.com/fco-gt/playlist",
+    url: "https://fco-gt.github.io/playlist/",
+    tags: [TAGS.HTML, TAGS.CSS, TAGS.JAVASCRIPT],
+  },
+  {
+    name: "Animated Login/Register",
+    description: "Formulario de login y registro animado",
+    image: "/images/projects/login-register.png",
+    isPrivate: false,
+    github: "https://github.com/fco-gt/LogIn-Register",
+    url: "https://fco-gt.github.io/LogIn-Register/",
+    tags: [TAGS.HTML, TAGS.CSS, TAGS.JAVASCRIPT],
+  },
+  {
+    name: "Mankekito GIF's",
+    description: "Libreria NPM para obtener GIF's",
+    image: "/images/projects/mankekito-gifs.png",
+    isPrivate: false,
+    github: "https://github.com/fco-gt/mankekito-gifs",
+    url: "https://www.npmjs.com/package/mankekito-gifs",
+    tags: [TAGS.JAVASCRIPT, TAGS.NODEJS],
+  },
+];
+---
+
+<section class="text-center">
+  <div class="text-gradient">
+    <h2 class="text-green-500/70 text-5xl mt-10 font-bold">Proyectos</h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-11 mx-11 gap-2">
+    {
+      projects.map((project) => (
+        <article class="container">
+          <div class="card">
+            <div class="image">
+              <img src={project.image} class="object-cover w-[595px] h-52" />
+            </div>
+            <div class="pre-content">
+              <h3 class="text-white font-2xl font-bold mt-2 mb-2">
+                {project.name}
+              </h3>
+            </div>
+            <div class="content">
+              <div class="mt-2 text-gray-700 dark:text-gray-400 mb-2">
+                {project.description}
+              </div>
+
+              <ul class="flex flex-wrap mb-2 gap-2 items-center justify-center">
+                {project.tags.map((tag) => (
+                  <li>
+                    <span
+                      class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}
+                    >
+                      <tag.icon class="size-4" />
+                      {tag.name}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              <footer class="flex justify-center gap-2 mt-5">
+                {project.isPrivate ? (
+                  <a
+                    class="flex items-center justify-center bg-green-500/10 border-green-500 border-2 text-white py-1 px-2 rounded-full hover:bg-green-500 hover:text-black transition-colors"
+                    href={project.invite}
+                    target="_blank"
+                  >
+                    Invitar
+                  </a>
+                ) : (
+                  <>
+                    <a
+                      class="flex items-center justify-center bg-green-500/10 border-green-500 border-2 text-white py-1 px-2 rounded-full hover:bg-green-500 hover:text-black transition-colors"
+                      href={project.url}
+                      target="_blank"
+                    >
+                      Ver
+                    </a>
+                    <a
+                      class="flex items-center justify-center bg-green-500/10 border-green-500 border-2 text-white py-1 px-2 rounded-full hover:bg-green-500 hover:text-black transition-colors"
+                      href={project.github}
+                      target="_blank"
+                    >
+                      Código
+                    </a>
+                  </>
+                )}
+
+                {project.topgg && (
+                  <a
+                    class="flex items-center justify-center bg-green-500/10 border-green-500 border-2 text-white py-1 px-2 rounded-full hover:bg-green-500 hover:text-black transition-colors"
+                    href={project.topgg}
+                    target="_blank"
+                  >
+                    Top.gg
+                  </a>
+                )}
+              </footer>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  section .text-gradient {
+    background: radial-gradient(hsl(100 100% 50%), hsl(200 100% 60%)) fixed;
+    background: conic-gradient(
+        hsl(100 100% 50%),
+        hsl(200 100% 50%),
+        hsl(100 100% 50%)
+      )
+      fixed;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+  }
+
+  .container {
+    position: relative;
+    width: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+  }
+
+  .container .card {
+    position: relative;
+    max-width: 357px;
+    height: 215px;
+    background-color: #23262d;
+    margin: 30px 10px;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    transition: 0.3s ease-in-out;
+    border-radius: 17px;
+    border: 1px solid green;
+    box-shadow: 0 0 0 2px rgb(0, 22, 0);
+  }
+  .container .card:hover {
+    height: 437px;
+  }
+
+  .container .card .image {
+    position: relative;
+    top: -50%;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    box-shadow: 0 0 0 1px rgb(0, 22, 0);
+    border-radius: 17px;
+    transition: 0.2s ease-in-out;
+  }
+
+  .container .card .image img {
+    max-width: 100%;
+    border-radius: 15px;
+  }
+
+  .container .card .pre-content {
+    position: relative;
+    top: -90px;
+    padding: 10px 15px;
+    text-align: center;
+    z-index: 1;
+    transition: 0.3s ease-in-out;
+  }
+
+  .container .card:hover .pre-content {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 35px;
+    transition-delay: 0.2s;
+  }
+
+  .container .card .content {
+    position: relative;
+    top: -140px;
+    padding: 10px 15px;
+    width: 100%;
+    color: #111;
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+  }
+
+  .container .card:hover .image {
+    top: -100px;
+    transition-delay: 0.2s;
+  }
+
+  .container .card:hover .content {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0.2s;
+  }
+</style>

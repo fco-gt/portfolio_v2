@@ -1,0 +1,88 @@
+---
+import Javascript from "./icons/Javascript.astro";
+import Typescript from "./icons/Typescript.astro";
+import HTML from "./icons/HTML.astro";
+import CSS3 from "./icons/CSS3.astro";
+import Tailwind from "./icons/Tailwind.astro";
+import React from "./icons/React.astro";
+import NextJS from "./icons/NextJS.astro";
+import NodeJS from "./icons/NodeJS.astro";
+import MongoDB from "./icons/MongoDB.astro";
+
+const tecnologies = [
+  {
+    name: "JavaScript",
+    icon: Javascript,
+  },
+  {
+    name: "TypeScript",
+    icon: Typescript,
+  },
+  {
+    name: "HTML",
+    icon: HTML,
+  },
+  {
+    name: "CSS",
+    icon: CSS3,
+  },
+  {
+    name: "TailwindCSS",
+    icon: Tailwind,
+  },
+  {
+    name: "React",
+    icon: React,
+  },
+  {
+    name: "Next.js",
+    icon: NextJS,
+  },
+  {
+    name: "Node.js",
+    icon: NodeJS,
+  },
+  {
+    name: "MongoDB",
+    icon: MongoDB,
+  },
+];
+---
+
+<section class="text-gray-700 body-font">
+  <div class="text-gradient">
+    <h2 class="text-green-500/70 text-5xl mt-10 font-bold">Skills</h2>
+  </div>
+
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap -m-4 text-center">
+      {
+        tecnologies.map((tecnologie) => (
+          <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
+            <div class="border-2 border-green-500 px-4 py-6 rounded-lg transform transition duration-500 hover:scale-110">
+              <tecnologie.icon class="text-indigo-500 w-12 h-12 mb-3 inline-block" />
+              <h2 class="title-font font-medium text-3xl text-gray-500">
+                {tecnologie.name}
+              </h2>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  section .text-gradient {
+    background: radial-gradient(hsl(100 100% 50%), hsl(200 100% 60%)) fixed;
+    background: conic-gradient(
+        hsl(100 100% 50%),
+        hsl(200 100% 50%),
+        hsl(100 100% 50%)
+      )
+      fixed;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+  }
+</style>
