@@ -9,62 +9,41 @@ import NextJS from "./icons/NextJS.astro";
 import NodeJS from "./icons/NodeJS.astro";
 import MongoDB from "./icons/MongoDB.astro";
 
-const tecnologies = [
-  {
-    name: "JavaScript",
-    icon: Javascript,
-  },
-  {
-    name: "TypeScript",
-    icon: Typescript,
-  },
-  {
-    name: "HTML",
-    icon: HTML,
-  },
-  {
-    name: "CSS",
-    icon: CSS3,
-  },
-  {
-    name: "TailwindCSS",
-    icon: Tailwind,
-  },
-  {
-    name: "React",
-    icon: React,
-  },
-  {
-    name: "Next.js",
-    icon: NextJS,
-  },
-  {
-    name: "Node.js",
-    icon: NodeJS,
-  },
-  {
-    name: "MongoDB",
-    icon: MongoDB,
-  },
+const technologies = [
+  { name: "JavaScript", icon: Javascript, level: 75 },
+  { name: "TypeScript", icon: Typescript, level: 70 },
+  { name: "HTML", icon: HTML, level: 80 },
+  { name: "CSS", icon: CSS3, level: 70 },
+  { name: "TailwindCSS", icon: Tailwind, level: 85 },
+  { name: "React", icon: React, level: 70 },
+  { name: "Next.js", icon: NextJS, level: 87 },
+  { name: "Node.js", icon: NodeJS, level: 85 },
+  { name: "MongoDB", icon: MongoDB, level: 80 },
 ];
 ---
 
-<section class="text-gray-700 body-font">
-  <div class="text-gradient">
-    <h2 class="text-green-500/70 text-5xl mt-10 font-bold">Skills</h2>
-  </div>
-
-  <div class="container px-5 py-24 mx-auto">
-    <div class="flex flex-wrap -m-4 text-center">
+<section class="text-green-400">
+  <div class="container mx-auto px-4">
+    <div class="text-gradient mb-11">
+      <h2 class="text-green-500/70 text-5xl mt-10 font-bold">Habilidades</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
       {
-        tecnologies.map((tecnologie) => (
-          <div class="p-4 md:w-1/4 sm:w-1/2 w-full">
-            <div class="border-2 border-green-500 px-4 py-6 rounded-lg transform transition duration-500 hover:scale-110">
-              <tecnologie.icon class="text-indigo-500 w-12 h-12 mb-3 inline-block" />
-              <h2 class="title-font font-medium text-3xl text-gray-500">
-                {tecnologie.name}
-              </h2>
+        technologies.map((tech, index) => (
+          <div class="skill-card cursor-pointer opacity-0 bg-black/20 border-2 border-green-500 rounded-lg p-6 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/50 hover:scale-105">
+            <div class="flex items-center justify-between mb-4">
+              <tech.icon class="w-12 h-12 text-green-400" />
+              <span class="text-2xl font-semibold">{tech.name}</span>
             </div>
+            <div class="relative pt-1">
+              <div class="overflow-hidden h-2 text-xs flex rounded bg-green-200">
+                <div
+                  style={`width: ${tech.level}%`}
+                  class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all duration-1000 ease-out"
+                />
+              </div>
+            </div>
+            <span class="text-sm mt-2 block text-right">{tech.level}%</span>
           </div>
         ))
       }
@@ -85,4 +64,59 @@ const tecnologies = [
     -webkit-text-fill-color: transparent;
     text-align: center;
   }
+
+  .skill-card {
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.3s ease-out;
+  }
+
+  .skill-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @keyframes fillProgress {
+    from {
+      width: 0%;
+    }
+    to {
+      width: var(--progress);
+    }
+  }
+
+  .skill-card .bg-green-500 {
+    animation: fillProgress 1.5s ease-out forwards;
+    width: 0%;
+  }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", (event) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            const progressBar = entry.target.querySelector(".bg-green-500");
+            if (progressBar) {
+              const progress = (progressBar as HTMLElement).style.width;
+              (progressBar as HTMLElement).style.setProperty(
+                "--progress",
+                progress
+              );
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    document.querySelectorAll(".skill-card").forEach((card) => {
+      observer.observe(card);
+    });
+  });
+</script>

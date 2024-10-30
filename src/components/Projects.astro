@@ -1,4 +1,5 @@
 ---
+import { motion } from "framer-motion";
 import NextJS from "../components/icons/NextJS.astro";
 import Tailwind from "../components/icons/Tailwind.astro";
 import Typescript from "../components/icons/Typescript.astro";
@@ -139,82 +140,124 @@ const projects = [
 ---
 
 <section class="text-center">
-  <div class="text-gradient">
-    <h2 class="text-green-500/70 text-5xl mt-10 font-bold">Proyectos</h2>
-  </div>
+  <motion.h2
+    client:load
+    initial={{ opacity: 0, y: -50 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    className="text-5xl font-bold mb-12"
+  >
+    <div class="text-gradient mb-11">
+      <h2 class="text-green-500/70 text-5xl mt-10 font-bold">Proyectos</h2>
+    </div>
+  </motion.h2>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-11 md:mx-11 gap-2">
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-8 lg:px-16"
+  >
     {
-      projects.map((project) => (
-        <article class="container">
-          <div class="card">
-            <div class="image">
-              <img src={project.image} class="object-cover w-[595px] h-52 md:h-72" />
-            </div>
-            <div class="pre-content">
-              <h3 class="text-white font-2xl font-bold mt-2 mb-2">
-                {project.name}
-              </h3>
-            </div>
-            <div class="content">
-              <div class="mt-2 text-gray-700 dark:text-gray-400 mb-2">
-                {project.description}
-              </div>
-
-              <ul class="flex flex-wrap mb-2 gap-2 items-center justify-center">
-                {project.tags.map((tag) => (
-                  <li>
-                    <span
-                      class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}
-                    >
-                      <tag.icon class="size-4" />
-                      {tag.name}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              <footer class="flex justify-center gap-2 mt-5">
-                {project.isPrivate ? (
-                  <a
-                    class="flex items-center justify-center bg-green-500/10 border-green-500 border-2 text-white py-1 px-2 rounded-full hover:bg-green-500 hover:text-black transition-colors"
-                    href={project.invite}
-                    target="_blank"
+      projects.map((project, index) => (
+        <motion.article
+          client:load
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{
+            scale: 1.05,
+            boxShadow: "0 0 25px rgba(0, 255, 0, 0.5)",
+            transition: { duration: 0.3 },
+          }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+          className="bg-gray-700/10 rounded-lg overflow-hidden shadow-lg transform transition duration-300"
+        >
+          <motion.img
+            src={project.image}
+            alt={project.name}
+            className="w-full h-48 object-cover"
+            whileHover={{
+              scale: 1.1,
+              transition: { duration: 0.3 },
+            }}
+          />
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">
+              {project.name}
+            </h3>
+            <p class="text-gray-300 mb-4">{project.description}</p>
+            <ul class="flex flex-wrap gap-2 mb-4">
+              {project.tags.map((tag) => (
+                <li>
+                  <span
+                    class={`flex items-center gap-1 rounded-full text-xs ${tag.class} py-1 px-2`}
                   >
-                    Invitar
-                  </a>
-                ) : (
-                  <>
-                    <a
-                      class="flex items-center justify-center bg-green-500/10 border-green-500 border-2 text-white py-1 px-2 rounded-full hover:bg-green-500 hover:text-black transition-colors"
-                      href={project.url}
-                      target="_blank"
-                    >
-                      Ver
-                    </a>
-                    <a
-                      class="flex items-center justify-center bg-green-500/10 border-green-500 border-2 text-white py-1 px-2 rounded-full hover:bg-green-500 hover:text-black transition-colors"
-                      href={project.github}
-                      target="_blank"
-                    >
-                      Código
-                    </a>
-                  </>
-                )}
-
-                {project.topgg && (
-                  <a
-                    class="flex items-center justify-center bg-green-500/10 border-green-500 border-2 text-white py-1 px-2 rounded-full hover:bg-green-500 hover:text-black transition-colors"
-                    href={project.topgg}
+                    <tag.icon class="w-4 h-4" />
+                    {tag.name}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div class="flex justify-center gap-2">
+              {project.isPrivate ? (
+                <motion.a
+                  href={project.invite}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                  whileHover={{
+                    scale: 1.1,
+                    backgroundColor: "#22c55e",
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  Invitar
+                </motion.a>
+              ) : (
+                <>
+                  <motion.a
+                    href={project.url}
                     target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#22c55e",
+                      transition: { duration: 0.2 },
+                    }}
                   >
-                    Top.gg
-                  </a>
-                )}
-              </footer>
+                    Ver
+                  </motion.a>
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition duration-300"
+                    whileHover={{
+                      scale: 1.1,
+                      backgroundColor: "#6b7280",
+                      transition: { duration: 0.2 },
+                    }}
+                  >
+                    Código
+                  </motion.a>
+                </>
+              )}
+              {project.topgg && (
+                <motion.a
+                  href={project.topgg}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+                  whileHover={{
+                    scale: 1.1,
+                    backgroundColor: "#3b82f6",
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  Top.gg
+                </motion.a>
+              )}
             </div>
           </div>
-        </article>
+        </motion.article>
       ))
     }
   </div>
@@ -232,88 +275,5 @@ const projects = [
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
-  }
-
-  .container {
-    position: relative;
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 35px;
-  }
-
-  .container .card {
-    position: relative;
-    max-width: 357px;
-    height: 215px;
-    background-color: #23262d;
-    margin: 30px 10px;
-    padding: 20px 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-    transition: 0.3s ease-in-out;
-    border-radius: 17px;
-    border: 1px solid green;
-    box-shadow: 0 0 0 2px rgb(0, 22, 0);
-  }
-  .container .card:hover {
-    height: 525px;
-  }
-
-  .container .card .image {
-    position: relative;
-    top: -50%;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    box-shadow: 0 0 0 1px rgb(0, 22, 0);
-    border-radius: 17px;
-    transition: 0.2s ease-in-out;
-  }
-
-  .container .card .image img {
-    max-width: 100%;
-    border-radius: 15px;
-  }
-
-  .container .card .pre-content {
-    position: relative;
-    top: -90px;
-    padding: 10px 15px;
-    text-align: center;
-    z-index: 1;
-    transition: 0.3s ease-in-out;
-  }
-
-  .container .card:hover .pre-content {
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 35px;
-    transition-delay: 0.2s;
-  }
-
-  .container .card .content {
-    position: relative;
-    top: -140px;
-    padding: 10px 15px;
-    width: 100%;
-    color: #111;
-    text-align: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: 0.3s ease-in-out;
-  }
-
-  .container .card:hover .image {
-    top: -100px;
-    transition-delay: 0.2s;
-  }
-
-  .container .card:hover .content {
-    visibility: visible;
-    opacity: 1;
-    transition-delay: 0.2s;
   }
 </style>
